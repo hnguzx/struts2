@@ -5,6 +5,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import models.User;
 import org.apache.struts2.ServletActionContext;
 import service.LoginService;
+import utils.SysLog;
 
 import java.io.IOException;
 
@@ -15,8 +16,8 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
 
 
     public String login() throws IOException {
+        SysLog.getLogger().info("用户进行登录操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         ServletActionContext.getResponse().setHeader("Access-Control-Allow-Origin", "*");
-        System.out.println("触发方法了！");
         LoginService service = new LoginService();
 //        User user = new User();
 //        HttpServletRequest request = ServletActionContext.getRequest();
