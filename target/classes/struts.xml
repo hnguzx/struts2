@@ -11,8 +11,12 @@
 	<!--<constant name="struts.custom.i18n.resources" value="struts"/> -->
 	<package name="default" namespace="/" extends="struts-default">
 		<action name="login" class="action.LoginAction" method="login">
-<!--			<result>/home.jsp</result>-->
-<!--			<result name="input">/login.jsp</result>-->
+			<result>/home.jsp</result>
+			<result name="input" type="chain">validaFail</result>
+		</action>
+		<action name="validaFail" class="action.ValitaFail" method="fail">
+		</action>
+		<action name="demo" class="action.Demo" method="demo">
 		</action>
 	</package>
 </struts>

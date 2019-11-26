@@ -16,13 +16,9 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
 
 
     public String login() throws IOException {
-        SysLog.getLogger().info("用户进行登录操作>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        SysLog.getLogger().info("用户进行登录操作>>>>>>>>>>>>>>>>>>>>>>"+user);
         ServletActionContext.getResponse().setHeader("Access-Control-Allow-Origin", "*");
         LoginService service = new LoginService();
-//        User user = new User();
-//        HttpServletRequest request = ServletActionContext.getRequest();
-//        user.setUsername(request.getParameter("username"));
-//        user.setPassword(request.getParameter("password"));
         System.out.println("用户信息：" + user.getUsername() + " " + user.getPassword());
         boolean result = service.login(user);
         if (result) {
@@ -34,6 +30,14 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
             ServletActionContext.getResponse().getWriter().write("fail!!!");
             return null;
         }
+    }
+
+    @Override
+    public void validate() {
+        if(user.getUsername()==null || user.getUsername().trim().length()==0){
+            this.addFieldError("user.message","用户名不能为空");
+        }
+        System.out.println("进行了校验");
     }
 
     @Override
