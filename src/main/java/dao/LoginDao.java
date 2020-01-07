@@ -9,9 +9,9 @@ import java.sql.ResultSet;
 
 public class LoginDao {
 
-    String url = "jdbc:mysql://localhost:3306/dg_exercise1?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    String url = "jdbc:mysql://180.76.58.205:3306/dg_exercise1?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     String username = "root";
-    String password = "970712";
+    String password = "Guzx@123";
 
     public boolean login(User user) {
         String usernameString = "";
