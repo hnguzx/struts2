@@ -14,7 +14,6 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
 
     private User user = new User();
 
-
     public String login() throws IOException {
         Log4jUtil.getLogger().info("用户进行登录操作>>>>>>>>>>>>>>>>>>>>>>");
         ServletActionContext.getResponse().setHeader("Access-Control-Allow-Origin", "*");
