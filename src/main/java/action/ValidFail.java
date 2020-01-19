@@ -6,7 +6,7 @@ import utils.Log4jUtil;
 
 import java.io.IOException;
 
-public class ValitaFail extends ActionSupport {
+public class ValidFail extends ActionSupport {
     public String fail() throws IOException {
         System.out.println("跳到这个方法！");
         Log4jUtil.getLogger().info("校验失败！");
