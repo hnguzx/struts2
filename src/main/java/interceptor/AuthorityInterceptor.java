@@ -1,13 +1,17 @@
 package interceptor;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.opensymphony.xwork2.interceptor.MethodFilterInterceptor;
 
-public class AuthorityInterceptor  extends AbstractInterceptor {
+import java.util.Map;
+
+public class AuthorityInterceptor extends MethodFilterInterceptor {
 
     @Override
-    public String intercept(ActionInvocation actionInvocation) throws Exception {
-        System.out.println("拦截！没有权限！！！");
+    protected String doIntercept(ActionInvocation actionInvocation) throws Exception {
+        System.out.println("进行方法层次拦截了！！！");
         return null;
     }
 }

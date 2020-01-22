@@ -13,22 +13,27 @@
     <package name="default" namespace="/" extends="struts-default">
         <interceptors>
             <interceptor name="custom" class="interceptor.LoginInterceptor"/>
-			<interceptor name="author" class="interceptor.AuthorityInterceptor" />
-    </interceptors>
+            <interceptor name="author" class="interceptor.AuthorityInterceptor">
+                <param name="excludeMethods">add,delete,modify</param>
+            </interceptor>
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="author"></interceptor-ref>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
 
-    <action name="login" class="action.LoginAction" method="login">
-        <interceptor-ref name="custom"/>
-        <result name="login">/home.jsp</result>
-        <result name="input" type="chain">validaFail</result>
-    </action>
-    <action name="validaFail" class="action.ValidFail" method="fail">
-    </action>
-    <action name="demo" class="action.Demo" method="demo">
-    </action>
-    <action name="*" class="action.Curd" method="{1}">
-		<interceptor-ref name="author">
-			<param name="includeMethods">add</param>
-		</interceptor-ref>
-    </action>
-</package>
-        </struts>
+
+        <action name="login" class="action.LoginAction" method="login">
+            <interceptor-ref name="custom"/>
+            <result name="login">/home.jsp</result>
+            <result name="input" type="chain">validaFail</result>
+        </action>
+        <action name="validaFail" class="action.ValidFail" method="fail">
+        </action>
+        <action name="demo" class="action.Demo" method="demo">
+        </action>
+        <action name="*" class="action.Curd" method="{1}">
+            <interceptor-ref name="myStack"></interceptor-ref>
+        </action>
+    </package>
+</struts>
