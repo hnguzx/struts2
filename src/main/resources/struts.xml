@@ -49,5 +49,8 @@
                 <param name="inputStream">${InputStream}</param>
             </result>
         </action>
+        <action name="ognl" class="action.OgnlAction">
+            <result name="success">/ognlSuccess.jsp</result>
+        </action>
     </package>
 </struts>

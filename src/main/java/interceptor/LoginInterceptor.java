@@ -4,8 +4,6 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import com.opensymphony.xwork2.interceptor.Interceptor;
-import models.User;
 import utils.Log4jUtil;
 
 import java.util.Map;
@@ -24,6 +22,7 @@ public class LoginInterceptor extends AbstractInterceptor {
         if (username.equals("gzx") && password.equals("123")) {
             Log4jUtil.getLogger().info("有权限！");
             context.getSession().put("username", username);
+            actionInvocation.invoke();
         }else {
             System.out.println("不好意思，没有权限！！！！！！！");
         }
