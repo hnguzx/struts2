@@ -1,22 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
-"http://struts.apache.org/dtds/struts-2.0.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<constant name="struts.devMode" value="false" />
-	<constant name="struts.ognl.allowStaticMethodAccess"
-		value="true" />
+    <constant name="struts.devMode" value="false"/>
+    <constant name="struts.ognl.allowStaticMethodAccess"
+              value="true"/>
 
-	<!--<constant name="struts.custom.i18n.resources" value="struts"/> -->
-	<package name="default" namespace="/" extends="struts-default">
-		<action name="login" class="action.LoginAction" method="login">
-			<result>/home.jsp</result>
-			<result name="input" type="chain">validaFail</result>
-		</action>
-		<action name="validaFail" class="action.ValitaFail" method="fail">
-		</action>
-		<action name="demo" class="action.Demo" method="demo">
-		</action>
-	</package>
+
+    <!--<constant name="struts.custom.i18n.resources" value="struts"/> -->
+    <package name="default" namespace="/" extends="struts-default">
+        <interceptors>
+            <interceptor name="custom" class="interceptor.LoginInterceptor"/>
+            <interceptor name="author" class="interceptor.AuthorityInterceptor">
+                <param name="excludeMethods">add,delete,modify</param>
+            </interceptor>
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="author"></interceptor-ref>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+
+        <action name="login" class="action.LoginAction" method="login">
+            <interceptor-ref name="custom"/>
+            <result name="login">/home.jsp</result>
+            <result name="input" type="chain">validaFail</result>
+        </action>
+        <action name="validaFail" class="action.ValidFail" method="fail">
+        </action>
+        <action name="demo" class="action.Demo" method="demo">
+        </action>
+        <action name="*" class="action.Curd" method="{1}">
+            <interceptor-ref name="myStack"></interceptor-ref>
+        </action>
+        <action name="upload" class="action.UploadAction">
+            <result name="input">/fail.jsp</result>
+            <result name="success">/success.jsp</result>
+            <interceptor-ref name="defaultStack">
+                <param name="fileUpload.allowedExtensions">txt,mp3,doc</param>
+            </interceptor-ref>
+        </action>
+        <action name="download" class="action.Download">
+            <result type="stream">
+                <param name="contentType">${ContentType}</param>
+                <param name="contentDisposition">attachment;filename=${Filename}</param>
+                <param name="inputStream">${InputStream}</param>
+            </result>
+        </action>
+        <action name="ognl" class="action.OgnlAction">
+            <result name="success">/ognlSuccess.jsp</result>
+        </action>
+    </package>
 </struts>

@@ -2,6 +2,6 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h2>Hello {user.username}!</h2>
+<h2>上传失败！</h2>
 </body>
 </html>
