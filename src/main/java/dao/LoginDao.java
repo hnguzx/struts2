@@ -15,6 +15,7 @@ public class LoginDao {
 
     public boolean login(User user) {
         String usernameString = "";
+        System.out.println("调用了dao");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection connection = DriverManager.getConnection(url, username, password);
@@ -39,9 +40,5 @@ public class LoginDao {
 
         return false;
     }
-
-//    public boolean register(User user) {
-//        return null;
-//    }
 
 }

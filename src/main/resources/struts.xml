@@ -7,10 +7,11 @@
     <constant name="struts.devMode" value="false"/>
     <constant name="struts.ognl.allowStaticMethodAccess"
               value="true"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
 
 
     <!--<constant name="struts.custom.i18n.resources" value="struts"/> -->
-    <package name="default" namespace="/" extends="struts-default">
+    <package name="default" namespace="/" extends="json-default">
         <interceptors>
             <interceptor name="custom" class="interceptor.LoginInterceptor"/>
             <interceptor name="author" class="interceptor.AuthorityInterceptor">
@@ -24,8 +25,10 @@
 
 
         <action name="login" class="action.LoginAction" method="login">
-            <interceptor-ref name="custom"/>
+            <interceptor-ref name="custom"></interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="login">/home.jsp</result>
+            <result name="success">/home.jsp</result>
             <result name="input" type="chain">validaFail</result>
         </action>
         <action name="validaFail" class="action.ValidFail" method="fail">
@@ -51,6 +54,11 @@
         </action>
         <action name="ognl" class="action.OgnlAction">
             <result name="success">/ognlSuccess.jsp</result>
+        </action>
+        <action name="ajax" class="action.AjaxAction">
+            <result type="json">
+<!--                <param name="root">products</param>-->
+            </result>
         </action>
     </package>
 </struts>

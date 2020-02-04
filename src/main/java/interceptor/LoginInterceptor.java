@@ -19,6 +19,7 @@ public class LoginInterceptor extends AbstractInterceptor {
         //
         String username = ((String[]) (parameters.get("username")))[0];
         String password = ((String[]) (parameters.get("password")))[0];
+        Log4jUtil.getLogger().info("用户名：" + username + "密码：" + password);
         if (username.equals("gzx") && password.equals("123")) {
             Log4jUtil.getLogger().info("有权限！");
             context.getSession().put("username", username);
@@ -26,8 +27,9 @@ public class LoginInterceptor extends AbstractInterceptor {
         }else {
             System.out.println("不好意思，没有权限！！！！！！！");
         }
-        Log4jUtil.getLogger().info("用户名：" + username + "密码：" + password);
         return Action.LOGIN;
+
+
     }
 
 //    @Override

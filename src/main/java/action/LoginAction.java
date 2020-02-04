@@ -23,13 +23,14 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
         if (result) {
             System.out.println("登录成功！");
             Log4jUtil.getLogger().info(user);
-            ServletActionContext.getResponse().getWriter().write("success!!!");
-            return null;
+//            ServletActionContext.getResponse().getWriter().write("success!!!");
+            return SUCCESS;
         } else {
             System.out.println("登录失败！");
-            ServletActionContext.getResponse().getWriter().write("fail!!!");
-            return null;
+//            ServletActionContext.getResponse().getWriter().write("fail!!!");
+            return INPUT;
         }
+
     }
 
     @Override

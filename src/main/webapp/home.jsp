@@ -1,5 +1,4 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,5 +21,8 @@
 
 	<p>文件下载</p>
 	<a href="${pageContext.request.contextPath}/download?filename=testFile.txt">点击下载</a>
+
+	<p>struts2对json进行操作</p>
+	<a href="${pageContext.request.contextPath}/json.jsp">点击获取json数据</a>
 </body>
 </html>
