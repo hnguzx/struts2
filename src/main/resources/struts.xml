@@ -13,7 +13,7 @@
     <!--<constant name="struts.custom.i18n.resources" value="struts"/> -->
     <package name="default" namespace="/" extends="json-default">
         <interceptors>
-            <interceptor name="custom" class="interceptor.LoginInterceptor"/>
+            <!--            <interceptor name="custom" class="interceptor.LoginInterceptor"/>-->
             <interceptor name="author" class="interceptor.AuthorityInterceptor">
                 <param name="excludeMethods">add,delete,modify</param>
             </interceptor>
@@ -25,14 +25,13 @@
 
 
         <action name="login" class="action.LoginAction" method="login">
-            <interceptor-ref name="custom"></interceptor-ref>
+            <!--            <interceptor-ref name="custom"></interceptor-ref>-->
             <interceptor-ref name="defaultStack"></interceptor-ref>
-            <result name="login">/home.jsp</result>
+            <result name="login">/login.jsp</result>
             <result name="success">/home.jsp</result>
-            <result name="input" type="chain">validaFail</result>
+            <result name="input">/login.jsp</result>
         </action>
-        <action name="validaFail" class="action.ValidFail" method="fail">
-        </action>
+
         <action name="demo" class="action.Demo" method="demo">
         </action>
         <action name="*" class="action.Curd" method="{1}">
@@ -57,7 +56,12 @@
         </action>
         <action name="ajax" class="action.AjaxAction">
             <result type="json">
-<!--                <param name="root">products</param>-->
+                <!--                <param name="root">products</param>-->
+            </result>
+        </action>
+        <action name="user" class="action.AjaxAction" method="user">
+            <result type="json">
+                <param name="root">users</param>
             </result>
         </action>
     </package>

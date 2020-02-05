@@ -1,5 +1,6 @@
 package action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import models.User;
@@ -8,21 +9,23 @@ import service.LoginService;
 import utils.Log4jUtil;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LoginAction extends ActionSupport  implements ModelDriven<User>{
 
 
     private User user = new User();
 
-    public String login() throws IOException {
+    public String login() throws IOException, SQLException {
         Log4jUtil.getLogger().info("用户进行登录操作>>>>>>>>>>>>>>>>>>>>>>");
         ServletActionContext.getResponse().setHeader("Access-Control-Allow-Origin", "*");
         LoginService service = new LoginService();
         System.out.println("用户信息：" + user.getUsername() + " " + user.getPassword());
-        boolean result = service.login(user);
-        if (result) {
+        User result = service.login(user);
+        if (result != null) {
             System.out.println("登录成功！");
             Log4jUtil.getLogger().info(user);
+            ActionContext.getContext().getSession().put("username", user.getUsername());
 //            ServletActionContext.getResponse().getWriter().write("success!!!");
             return SUCCESS;
         } else {
@@ -45,4 +48,5 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
     public User getModel() {
         return user;
     }
+
 }
